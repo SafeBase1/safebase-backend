@@ -13,9 +13,3 @@
   },
   "include": ["src"]
 }
-"scripts": {
-  "dev": "tsx watch src/index.ts",
-  "build": "tsc",
-  "start": "node dist/index.js",
-  "postinstall": "prisma generate"
-}
