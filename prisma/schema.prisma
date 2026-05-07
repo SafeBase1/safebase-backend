@@ -1,1 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id    String   @id @default(cuid())
+  name  String
+  users User[]
+}
+
+model User {
+  id       String  @id @default(cuid())
+  tenantId String
+  email    String  @unique
+  password String
+  role     String  @default("user")
+  name     String?
+  tenant   Tenant  @relation(fields: [tenantId], references: [id])
+}
+
+model Employee {
+  id        String   @id @default(cuid())
+  tenantId  String
+  empNum    String   @unique
+  name      String
+  dept      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  @@map("employees")
+}
+
+model Incident {
+  id              String   @id @default(cuid())
+  tenantId        String
+  date            DateTime
+  status          String
+  type            String
+  severity        String
+  employeeId      String?
+  establishmentId String?
+  projectId       String?
+  isRecordable    Boolean  @default(false)
+  isNearMiss      Boolean  @default(false)
+  description     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+  @@map("incidents")
+}
