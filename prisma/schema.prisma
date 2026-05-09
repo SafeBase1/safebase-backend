@@ -8,9 +8,11 @@ datasource db {
 }
 
 model Tenant {
-  id    String   @id @default(cuid())
-  name  String
-  users User[]
+  id        String     @id @default(cuid())
+  name      String
+  users     User[]
+  employees Employee[]
+  incidents Incident[]
 }
 
 model User {
