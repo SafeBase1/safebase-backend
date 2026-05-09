@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "postinstall": "prisma generate"
   },
@@ -13,12 +13,12 @@
     "cors": "^2.8.5",
     "fastify": "^5.0.0",
     "jsonwebtoken": "^9.0.0",
-    "prisma": "^6.0.0",
-    "typescript": "^5.0.0",
-    "@types/node": "^22.0.0"
+    "prisma": "^6.0.0"
   },
   "devDependencies": {
+    "typescript": "^5.0.0",
     "tsx": "^4.0.0",
+    "@types/node": "^22.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.7"
   }
