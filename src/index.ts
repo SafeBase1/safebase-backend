@@ -5,8 +5,6 @@ import { PrismaClient } from '@prisma/client';
 const fastify = Fastify({ logger: true });
 const prisma = new PrismaClient();
 
-await fastify.register(cors, { origin: true, credentials: true });
-
 fastify.get('/api/employees', async () => {
   return prisma.employee.findMany();
 });
@@ -42,6 +40,7 @@ fastify.delete('/api/incidents/:id', async (req, reply) => {
 const start = async () => {
   try {
     await prisma.$connect();
+    await fastify.register(cors, { origin: true, credentials: true });
     await fastify.listen({ port: Number(process.env.PORT) || 3000, host: '0.0.0.0' });
   } catch (err) {
     fastify.log.error(err);
